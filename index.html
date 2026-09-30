@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Planejamento de Disciplinas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1 id="title">Grade Curricular</h1>
+    <form id="addCourseForm" class="toolbar" autocomplete="off">
+      <input id="newCourseName" type="text" placeholder="Nome da disciplina" required>
+      <select id="newCoursePeriod" aria-label="Período da disciplina"></select>
+      <button type="submit">Adicionar disciplina</button>
+      <button type="button" id="addPeriodBtn" class="secondary">Adicionar período</button>
+    </form>
+    <ul class="legend">
+      <li><i class="dot s0"></i>Não pago</li>
+      <li><i class="dot s1"></i>Pagando</li>
+      <li><i class="dot s2"></i>Pago</li>
+      <li class="hint">Clique: muda o status · Duplo clique: renomeia · Arraste: move</li>
+    </ul>
+  </header>
+  <main id="board" class="board"></main>
+  <script src="script.js"></script>
+</body>
+</html>

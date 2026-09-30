@@ -1,0 +1,92 @@
+:root {
+  --bg: #f3f6f8;
+  --ink: #17303b;
+  --muted: #5d7480;
+  --line: #cdd9df;
+  --s0: #e4675f; --s0-bg: #fdeceb;
+  --s1: #e9b62f; --s1-bg: #fdf4d6;
+  --s2: #3f8fd2; --s2-bg: #e3f0fb;
+  --accent: #1d6f8a;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12191d; --ink: #e5eef2; --muted: #93a8b2; --line: #2d3d45;
+    --s0-bg: #3a1f1f; --s1-bg: #3a3218; --s2-bg: #16303f; --accent: #4fb3d1;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+}
+.topbar { padding: 20px 20px 8px; }
+h1 { margin: 0 0 12px; font-size: clamp(1.5rem, 3vw, 2.2rem); cursor: text; }
+h1 input { font: inherit; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; }
+input[type=text], select {
+  font: inherit; padding: 8px 10px; border: 1px solid var(--line);
+  border-radius: 8px; background: var(--bg); color: var(--ink); min-width: 0;
+}
+#newCourseName { flex: 1 1 220px; max-width: 340px; }
+button {
+  font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--accent);
+  background: var(--accent); color: #fff; cursor: pointer;
+}
+button.secondary { background: transparent; color: var(--accent); }
+button:focus-visible, .card:focus-visible { outline: 3px solid var(--s2); outline-offset: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; list-style: none; padding: 0; margin: 12px 0 0; font-size: .85rem; }
+.legend .hint { color: var(--muted); }
+.dot { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
+
+.board {
+  display: grid; gap: 14px; padding: 12px 20px 40px; align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+.period {
+  background: color-mix(in srgb, var(--bg) 60%, #fff 40%);
+  border: 1px solid var(--line); border-radius: 14px; padding: 10px;
+  transition: opacity .15s;
+}
+.period.dragging { opacity: .4; }
+.period.drop-before { box-shadow: -6px 0 0 var(--accent); }
+.period.drop-after { box-shadow: 6px 0 0 var(--accent); }
+.period-head {
+  display: flex; align-items: center; gap: 4px; margin-bottom: 10px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--accent);
+}
+.grip { cursor: grab; color: var(--muted); padding: 0 4px; user-select: none; }
+.period-name { flex: 1; font-weight: 700; cursor: text; overflow-wrap: anywhere; }
+.icon {
+  padding: 2px 7px; background: transparent; color: var(--muted);
+  border: 1px solid transparent; line-height: 1.2;
+}
+.icon:hover { color: var(--ink); border-color: var(--line); }
+.icon.danger:hover { color: var(--s0); border-color: var(--s0); }
+.cards { display: flex; flex-direction: column; gap: 8px; min-height: 44px; border-radius: 10px; }
+.cards.over { background: color-mix(in srgb, var(--accent) 12%, transparent); outline: 2px dashed var(--accent); outline-offset: 2px; }
+.card {
+  position: relative; padding: 10px 28px 10px 12px; border-radius: 12px;
+  border: 2px solid var(--c); background: var(--cbg); cursor: pointer;
+  user-select: none; min-height: 58px;
+}
+.card.dragging { opacity: .35; }
+.card .name { display: block; font-size: .88rem; font-weight: 600; overflow-wrap: anywhere; cursor: text; }
+.card .status { display: block; margin-top: 4px; font-size: .72rem; color: var(--muted); }
+.card .status::before {
+  content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 5px;
+  border-radius: 50%; background: var(--c);
+}
+.card .del { position: absolute; top: 4px; right: 4px; opacity: 0; }
+.card:hover .del, .card:focus-within .del { opacity: 1; }
+@media (hover: none) { .card .del { opacity: .7; } }
+.s0 { --c: var(--s0); --cbg: var(--s0-bg); }
+.s1 { --c: var(--s1); --cbg: var(--s1-bg); }
+.s2 { --c: var(--s2); --cbg: var(--s2-bg); }
+.dot.s0 { background: var(--s0); } .dot.s1 { background: var(--s1); } .dot.s2 { background: var(--s2); }
+.drop-line { height: 4px; border-radius: 2px; background: var(--accent); margin: -6px 0; }
+.card input { width: 100%; font: inherit; font-size: .88rem; padding: 4px 6px; }
+.add-inline { margin-top: 8px; width: 100%; background: transparent; color: var(--muted); border: 1px dashed var(--line); }
+.add-inline:hover { color: var(--accent); border-color: var(--accent); }
+.period input[type=text] { width: 100%; padding: 4px 6px; }
+.empty { color: var(--muted); font-size: .8rem; text-align: center; padding: 10px 0; }
+@media (max-width: 520px) { .board { grid-template-columns: 1fr; padding: 12px; } }
