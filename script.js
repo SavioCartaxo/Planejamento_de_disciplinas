@@ -283,8 +283,7 @@ board.addEventListener("dragover", (e) => {
     e.preventDefault();
     clearDropUI();
     const r = col.getBoundingClientRect();
-    const stacked = window.innerWidth <= 520; // uma coluna: compara na vertical
-    const after = stacked ? e.clientY > r.top + r.height / 2 : e.clientX > r.left + r.width / 2;
+    const after = e.clientX > r.left + r.width / 2;
     col.classList.add(after ? "drop-after" : "drop-before");
     periodDrop = { id: col.dataset.id, after };
   }

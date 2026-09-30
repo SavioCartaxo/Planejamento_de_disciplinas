@@ -38,10 +38,13 @@ button:focus-visible, .card:focus-visible { outline: 3px solid var(--s2); outlin
 .legend .hint { color: var(--muted); }
 .dot { display: inline-block; width: 12px; height: 12px; border-radius: 4px; margin-right: 6px; vertical-align: -1px; }
 
+/* Todos os períodos lado a lado, com larguras iguais; rola na horizontal se faltar espaço */
 .board {
-  display: grid; gap: 14px; padding: 12px 20px 40px; align-items: start;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  display: grid; gap: 10px; padding: 12px 20px 40px; align-items: start;
+  grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr);
+  overflow-x: auto;
 }
+.period { min-width: 0; }
 .period {
   background: color-mix(in srgb, var(--bg) 60%, #fff 40%);
   border: 1px solid var(--line); border-radius: 14px; padding: 10px;
@@ -67,7 +70,7 @@ button:focus-visible, .card:focus-visible { outline: 3px solid var(--s2); outlin
 .card {
   position: relative; padding: 10px 28px 10px 12px; border-radius: 12px;
   border: 2px solid var(--c); background: var(--cbg); cursor: pointer;
-  user-select: none; min-height: 58px;
+  user-select: none; height: 78px; overflow: hidden;
 }
 .card.dragging { opacity: .35; }
 .card .name { display: block; font-size: .88rem; font-weight: 600; overflow-wrap: anywhere; cursor: text; }
@@ -89,4 +92,8 @@ button:focus-visible, .card:focus-visible { outline: 3px solid var(--s2); outlin
 .add-inline:hover { color: var(--accent); border-color: var(--accent); }
 .period input[type=text] { width: 100%; padding: 4px 6px; }
 .empty { color: var(--muted); font-size: .8rem; text-align: center; padding: 10px 0; }
-@media (max-width: 520px) { .board { grid-template-columns: 1fr; padding: 12px; } }
+.card .name {
+  display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden; font-size: .78rem;
+}
+@media (max-width: 520px) { .board { padding: 12px; grid-auto-columns: minmax(140px, 1fr); } }
